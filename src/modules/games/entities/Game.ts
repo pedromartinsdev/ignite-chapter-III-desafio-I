@@ -9,7 +9,7 @@ import {
 
 import { User } from '../../users/entities/User';
 
-@Entity('games')
+@Entity ('games')
 export class Game {
   @PrimaryGeneratedColumn('uuid')
   id: string;

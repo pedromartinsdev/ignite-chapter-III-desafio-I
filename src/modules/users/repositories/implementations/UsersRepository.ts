@@ -18,11 +18,13 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async findAllUsersOrderedByFirstName(): Promise<User[]> {
+    return await this.repository.query('SELECT * FROM users ORDER BY first_name ASC');
   }
 
   async findUserByFullName({
     first_name,
     last_name,
   }: IFindUserByFullNameDTO): Promise<User[] | undefined> {
+    return await this.repository.query('SELECT * FROM "users" WHERE (lower("first_name") = lower($1)) AND (lower("last_name") = lower($2))', [first_name, last_name]);
   }
 }
