@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  queries_challenge:
+    image: queries_challenge
+    container_name: ignite-challenge-database-queries
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=queries_challenge
+    volumes:
+      - pgdata:/data/postgres
+
+  app:
+    build: .
+    container_name: app-queries-challenge
+    ports:
+      - 3333:3333
+    volumes:
+      - .:/usr/app
+
+    links:
+      - queries_challenge
+    depends_on:
+      - queries_challenge
+
+volumes:
+  pgdata:
+    driver: local
